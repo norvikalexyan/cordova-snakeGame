@@ -228,9 +228,6 @@ function startMoving(){
 startMoving();
 	}, 200);
 };
-
-export function startGame() {
-    giveMeFood();
-    startMoving();
-}
+giveMeFood();
+startMoving();
 
