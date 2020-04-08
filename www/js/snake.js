@@ -165,6 +165,7 @@ function isSnakeAlive(){
         snake[0].y < 0 ||   // head hits the top wall
         snake[0].y > GameBoard.height - 10   // head hits the bottom wall
     ) {
+        document.getElementById("restart").disabled = false;
         return false;
     }
     //2.snake's head goes on any part of its body(snake eats itself)
@@ -172,6 +173,7 @@ function isSnakeAlive(){
     //just one thing, snake can not eat itself on the first 3 parts, so we start at 4.
     for (let i = 4; i < snake.length; i++) {
         if (snake[i].x === snake[0].x && snake[i].y === snake[0].y){
+            document.getElementById("restart").disabled = false;
             return false;
         }
     }
@@ -241,6 +243,7 @@ function restart() {
     snake = snake.slice(0, 4);
     score = 0;
     document.getElementById("score").innerHTML = score;
+    document.getElementById("restart").disabled = true;
     giveMeFood();
     startMoving();
 }

@@ -2,6 +2,7 @@
 //let's create two global variable that keeps the value of xChange and yChange so in the event of key press we can change the value of them and feed them to our goSnake() function.
 let stepX=10;
 let stepY=0;
+let score = 0;
 
 //we put our food coordination in a global variable and then call the drawSquare() function n the loop of each frame.
 //Every time we start the game food is at {x:200,y:300} so we can call our giveMeFood() function before starting the game.
@@ -71,6 +72,9 @@ function goSnake(){
     const head = {x: snake[0].x + stepX, y: snake[0].y + stepY};
     snake.unshift(head);
     if(snake[0].x === food.x && snake[0].y === food.y){
+        score++;
+        document.getElementById("score").innerHTML = score;
+        console.log(score);
         giveMeFood();
     } else {
         //cut the tail using js method for array called pop().
@@ -114,13 +118,12 @@ function clearBoard() {
 //we have one problem,it should not be allowed to go left  when it's going right and same about up and down.
 //lets fix the problem that we have above by adding a variable that keeps the direction of the snake and then check it when we want to change.
 let direction = "right";
-function changeDirection(event) {
-    const pressedKey = event.keyCode;
+function changeDirection(selectedKey) {
     const LeftKey = 37;  
     const RightKey = 39;  
     const UpKey = 38;  
     const DownKey = 40;
-    switch(pressedKey) {
+    switch(selectedKey) {
         case LeftKey:
             if(direction !== "right"){
                 stepX = -10;
@@ -162,6 +165,7 @@ function isSnakeAlive(){
         snake[0].y < 0 ||   // head hits the top wall
         snake[0].y > GameBoard.height - 10   // head hits the bottom wall
     ) {
+        document.getElementById("restart").disabled = false;
         return false;
     }
     //2.snake's head goes on any part of its body(snake eats itself)
@@ -169,6 +173,7 @@ function isSnakeAlive(){
     //just one thing, snake can not eat itself on the first 3 parts, so we start at 4.
     for (let i = 4; i < snake.length; i++) {
         if (snake[i].x === snake[0].x && snake[i].y === snake[0].y){
+            document.getElementById("restart").disabled = false;
             return false;
         }
     }
@@ -213,8 +218,6 @@ function startMoving(){
     //to be able to control our snake's movement with keyboard,first we need to capture the event of pressing a keyboard key in our code.
     //we can achieve that by attaching something called event listener to our page.
     //we can use this event input to get find which key was pressed.
-    //we create a function called changeDirection(),this function has one input of the event type that we are going to use in our addEventListener() function.
-	document.addEventListener("keydown", changeDirection);
 	setTimeout(()=>{
 		clearBoard();
 		if(isSnakeAlive()){
@@ -230,4 +233,18 @@ startMoving();
 };
 giveMeFood();
 startMoving();
+
+function restart() {
+    let number1 = 250;
+    stepX = 10;
+    stepY = 0;
+    snake.forEach(element => element.x = number1 -= 10);
+    snake.forEach(element => element.y = 250);
+    snake = snake.slice(0, 4);
+    score = 0;
+    document.getElementById("score").innerHTML = score;
+    document.getElementById("restart").disabled = true;
+    giveMeFood();
+    startMoving();
+}
 
