@@ -114,13 +114,13 @@ function clearBoard() {
 //we have one problem,it should not be allowed to go left  when it's going right and same about up and down.
 //lets fix the problem that we have above by adding a variable that keeps the direction of the snake and then check it when we want to change.
 let direction = "right";
-function changeDirection(event) {
-    const pressedKey = event.keyCode;
+function changeDirection(selectedKey) {
+    alert('hello');
     const LeftKey = 37;  
     const RightKey = 39;  
     const UpKey = 38;  
     const DownKey = 40;
-    switch(pressedKey) {
+    switch(selectedKey) {
         case LeftKey:
             if(direction !== "right"){
                 stepX = -10;
@@ -213,8 +213,6 @@ function startMoving(){
     //to be able to control our snake's movement with keyboard,first we need to capture the event of pressing a keyboard key in our code.
     //we can achieve that by attaching something called event listener to our page.
     //we can use this event input to get find which key was pressed.
-    //we create a function called changeDirection(),this function has one input of the event type that we are going to use in our addEventListener() function.
-	document.addEventListener("keydown", changeDirection);
 	setTimeout(()=>{
 		clearBoard();
 		if(isSnakeAlive()){

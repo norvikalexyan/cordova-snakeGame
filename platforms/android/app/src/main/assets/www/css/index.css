@@ -41,6 +41,7 @@ body {
 .app {
     /* background-color: red; */
     position:absolute;             /* position in the center of the screen */
+    width: 90%;
     text-align:center;
 }
 

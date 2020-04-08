@@ -1,5 +1,13 @@
+body {
+    text-align: center;
+}
 #GameBoard {
     border: 1px solid black;
-    margin-left: 450px;
-    margin-top: 150px;
-} 
+    width: 90%;
+}
+
+button {
+    font-size: 10px;
+    width: 30px;
+    height: 30px;
+}
